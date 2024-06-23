@@ -1,0 +1,12 @@
+.venv
+venv
+__pycache__
+**/.python-version
+**/.pytest_cache
+*.pdf
+*.o
+.vscode
+.vscode/*
+.code-workspace
+**/*.js
+**/node_modules
