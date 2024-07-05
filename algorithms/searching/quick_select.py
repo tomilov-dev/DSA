@@ -79,7 +79,7 @@ if __name__ == "__main__":
     array = [10, 4, 5, 8, 6, 11, 26]
     k = 3
 
-    klarge = quickselect(array, 0, len(array) - 1, 3)
-    print(klarge)
+    # klarge = quickselect(array, 0, len(array) - 1, 3)
+    # print(klarge)
 
-    # print(pyquickselect(array, k))
+    print(pyquickselect(array, k))
