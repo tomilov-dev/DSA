@@ -5,9 +5,9 @@ from collections import deque
 
 class AbstractTreeNode:
     key: int
-    left: "AbstractTreeNode"
-    right: "AbstractTreeNode"
-    parent: "AbstractTreeNode"
+    left: "AbstractTreeNode" | None
+    right: "AbstractTreeNode" | None
+    parent: "AbstractTreeNode" | None
 
     empty: bool
 
@@ -307,7 +307,7 @@ class BinarySearchTree(AbstractBinaryTree):
             # at the end we change tNode parent
             tNode.parent = rNode.parent
 
-    def delete(self, delNode: AbstractTreeNode) -> None:
+    def delete(self, delNode: AbstractTreeNode | None) -> None:
         if delNode is None:
             raise ValueError("The node to be deleted mustn't be NULL")
 
