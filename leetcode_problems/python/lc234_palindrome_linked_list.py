@@ -7,7 +7,7 @@ class ListNode:
         return f"{self.val}"
 
 
-class Solution:
+class SolutionWithMassive:
     def isPalindrome(self, head: ListNode | None) -> bool:
         lst = []
         while head is not None:
@@ -21,6 +21,39 @@ class Solution:
                 return False
             p1 += 1
             p2 -= 1
+
+        return True
+
+
+class Solution:
+    def middle_node(self, node: ListNode | None) -> ListNode:
+        s = head
+        q = head
+        while q and q.next:
+            s = s.next  # type:ignore
+            q = q.next.next
+
+        return s  # type:ignore
+
+    def reverse(self, node: ListNode | None) -> ListNode:
+        prev = None
+        while node:
+            temp = node
+            node = node.next
+            temp.next = prev
+            prev = temp
+
+        return prev  # type:ignore
+
+    def isPalindrome(self, head: ListNode | None) -> bool:
+        middle = self.middle_node(head)
+        middle = self.reverse(middle)
+
+        while middle and head:
+            if middle.val != head.val:
+                return False
+            middle = middle.next
+            head = head.next
 
         return True
 
