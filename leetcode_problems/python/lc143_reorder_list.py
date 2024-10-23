@@ -36,8 +36,8 @@ class Solution:
 
         new_head = p1 = head
         while p2:
-            tmp = p1.next
-            p1.next = p2
+            tmp = p1.next  # type:ignore
+            p1.next = p2  # type:ignore
             p1 = p2
             p2 = tmp
 
