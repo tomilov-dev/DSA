@@ -31,6 +31,29 @@ class Solution:
         return True
 
 
+class Solution2:
+    def isMonotonic(self, nums: list[int]) -> bool:
+        if len(nums) <= 1:
+            return True
+
+        increase = False
+        decrease = False
+
+        prev = nums[0]
+        for num in nums[1:]:
+            if num > prev:
+                increase = True
+            elif num < prev:
+                decrease = True
+            prev = num
+
+            if increase and decrease:
+                return False
+
+        return True
+
+
 if __name__ == "__main__":
     nums = [1, 1, 1, 1, 1, 1, 2, 4, 5]
-    print(Solution().isMonotonic(nums))
+    # print(Solution().isMonotonic(nums))
+    print(Solution2().isMonotonic(nums))
