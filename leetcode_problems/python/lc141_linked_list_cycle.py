@@ -12,7 +12,7 @@ Explanation: There is a cycle in the linked list, where the tail connects to the
 
 
 class ListNode:
-    def __init__(self, x):
+    def __init__(self, x: int):
         self.val = x
         self.next = None
 
@@ -22,7 +22,7 @@ class Solution(object):
     53 ms, 20.1 MB
     """
 
-    def run(self, head: ListNode):
+    def hasCycle(self, head: ListNode):
         if not head:
             return False
 
@@ -40,5 +40,31 @@ class Solution(object):
             return False
 
 
+class Solution2:
+    def hasCycle(
+        self,
+        head: ListNode | None = None,
+    ) -> bool:
+        if not head:
+            return False
+
+        p1 = head
+        p2 = head
+        while p1 and p2 and p2.next:
+            p1 = p1.next
+            p2 = p2.next.next
+            if p1 == p2:
+                return True
+        return False
+
+
 if __name__ == "__main__":
-    pass
+    head = ListNode(3)
+    head.next = ListNode(2)
+    cycle = head.next
+    head.next.next = ListNode(0)
+    head.next.next.next = ListNode(-4)
+    head.next.next.next = cycle
+
+    pos = 1
+    print(Solution().hasCycle(head))
