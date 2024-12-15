@@ -37,8 +37,25 @@ class Solution(object):
         return last
 
 
-if __name__ == "__main__":
-    x = 9
+class Solution2:
+    def is_good(self, value: int, target: int) -> bool:
+        return value * value <= target
 
-    sol = Solution()
-    print(sol.run(x))
+    def mySqrt(self, x: int) -> int:
+        low = 1
+        high = x + 1
+        while high - low > 1:
+            mid = low + (high - low) // 2
+            if self.is_good(mid, x):
+                low = mid
+            else:
+                high = mid
+
+        return low
+
+
+if __name__ == "__main__":
+    x = 8
+
+    sol = Solution2()
+    print(sol.mySqrt(x))

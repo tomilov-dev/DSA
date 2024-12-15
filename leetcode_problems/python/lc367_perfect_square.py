@@ -15,7 +15,28 @@ class Solution:
         return False
 
 
+class Solution2:
+    def is_good(
+        self,
+        val: int,
+        target: int,
+    ) -> bool:
+        return val * val <= target
+
+    def isPerfectSquare(self, num: int) -> bool:
+        low = 1
+        high = num
+        while high - low > 1:
+            mid = low + (high - low) // 2
+            if self.is_good(mid, num):
+                low = mid
+            else:
+                high = mid
+
+        return low * low == num
+
+
 if __name__ == "__main__":
-    print(Solution().isPerfectSquare(16))
-    print(Solution().isPerfectSquare(14))
-    print(Solution().isPerfectSquare(1))
+    print(Solution2().isPerfectSquare(16))
+    print(Solution2().isPerfectSquare(14))
+    print(Solution2().isPerfectSquare(1))
