@@ -9,6 +9,7 @@ Output: 49
 Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. 
 In this case, the max area of water (blue section) the container can contain is 49.
 """
+
 import random
 from time_measure import repeater
 
@@ -60,11 +61,33 @@ class Solution2(object):
         return max_w
 
 
+class Solution3:
+    def calch(self, h: list[int], p1: int, p2: int) -> int:
+        return (p2 - p1) * min(h[p1], h[p2])
+
+    def maxArea(self, height: list[int]) -> int:
+        p1 = 0
+        p2 = len(height) - 1
+
+        maxh = 0
+        while p1 < p2:
+            maxh = max(maxh, self.calch(height, p1, p2))
+            if height[p1] > height[p2]:
+                p2 -= 1
+            else:
+                p1 += 1
+
+        return maxh
+
+
 if __name__ == "__main__":
-    height = [random.randint(1, 100) for _ in range(1000)]
+    # height = [random.randint(1, 100) for _ in range(1000)]
 
-    sol1 = Solution1()
-    sol2 = Solution2()
+    # sol1 = Solution1()
+    # sol2 = Solution2()
 
-    sol1.run(height)
-    sol2.run(height)
+    # sol1.run(height)
+    # sol2.run(height)
+
+    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+    print(Solution3().maxArea(height))

@@ -4,6 +4,7 @@ Given the head of a sorted linked list, delete all duplicates such that each ele
 Input: head = [1,1,2]
 Output: [1,2]
 """
+
 from time_measure import repeater
 
 
@@ -110,6 +111,21 @@ class Solution3(object):
                 cur.next = cur.next.next
             else:
                 cur = cur.next
+
+        return head
+
+
+class Solution:
+    def deleteDuplicates(
+        self,
+        head: ListNode | None,
+    ) -> ListNode | None:
+        node = head
+        while node and node.next:
+            if node.val == node.next.val:
+                node.next = node.next.next
+            else:
+                node = node.next
 
         return head
 

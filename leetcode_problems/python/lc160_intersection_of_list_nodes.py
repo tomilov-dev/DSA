@@ -29,11 +29,7 @@ There are 3 nodes before the intersected node in B.
 In other words, they point to two different locations in memory, while the nodes with value 8 in A and B (3rd node in A and 4th node in B) point to the same location in memory.
 """
 
-
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+from utils import ListNode
 
 
 class Solution(object):
@@ -41,15 +37,11 @@ class Solution(object):
         if not headA or not headB:
             return None
 
-        listNode1 = headA
-        listNode2 = headB
+        p1 = headA
+        p2 = headB
 
-        while listNode1 != listNode2:
-            listNode1 = headB if listNode1 is None else listNode1.next
-            listNode2 = headA if listNode2 is None else listNode2.next
+        while p1 != p2:
+            p1 = headB if p1 is None else p1.next
+            p2 = headA if p2 is None else p2.next
 
-        return listNode1
-
-
-if __name__ == "__main__":
-    pass
+        return p1

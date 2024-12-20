@@ -10,9 +10,9 @@ class ListNode:
         return str(self.val)
 
 
-def build_ll(arr: list[Any]) -> Optional[ListNode]:
+def build_ll(arr: list[Any]) -> ListNode:
     if not arr:
-        return None
+        raise ValueError()
 
     head = ListNode(arr[0])
     node = head
@@ -109,7 +109,7 @@ def print_tree(root: Optional[TreeNode]) -> None:
 
 
 if __name__ == "__main__":
-    nums = [1, 2, 3, None, 5]
+    nums = [90, 69, None, 49, 89, None, 52]
     tree = build_tree(nums)
     print_tree(tree)
     ll = build_ll([1, 2, 3, 4, 5])

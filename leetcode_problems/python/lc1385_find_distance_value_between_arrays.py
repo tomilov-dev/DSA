@@ -17,11 +17,3 @@ class Solution:
                 distance += 1
 
         return distance
-
-
-if __name__ == "__main__":
-    arr1 = [4, 5, 8]
-    arr2 = [10, 9, 1, 8]
-    d = 2
-
-    print(Solution().findTheDistanceValue(arr1, arr2, d))

@@ -12,10 +12,7 @@ class Solution:
         p2 = len(s) - 1
 
         while p1 < p2:
-            char1 = s[p1]
-            char2 = s[p2]
-
-            if char1 == char2:
+            if s[p1] == s[p2]:
                 p1 += 1
                 p2 -= 1
 

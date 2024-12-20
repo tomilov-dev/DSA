@@ -27,6 +27,7 @@ Output: 2, nums = [1,2,_]
 Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
 It does not matter what you leave beyond the returned k (hence they are underscores).
 """
+
 from time_measure import repeater
 
 
@@ -108,17 +109,33 @@ class Solution3(object):
         return index
 
 
+class Solution:
+    def removeDuplicates(self, nums: list[int]) -> int:
+        p1 = 0
+        p2 = 1
+        while p2 < len(nums):
+            if nums[p1] == nums[p2]:
+                p2 += 1
+            else:
+                p1 += 1
+                nums[p1] = nums[p2]
+
+        return p1 + 1
+
+
 if __name__ == "__main__":
     mnums = [1, 2, 2, 3, 3, 3, 3, 4]
-    # nums = [1, 2]
+    print(Solution().removeDuplicates(mnums))
 
-    sol0 = SimplePythonSolution()
-    sol1 = Solution1()
-    sol2 = Solution2()
-    sol3 = Solution3()
+    # # nums = [1, 2]
 
-    sol0.run(nums=mnums[:])
-    # sol1.run(nums=mnums[:])
+    # sol0 = SimplePythonSolution()
+    # sol1 = Solution1()
+    # sol2 = Solution2()
+    # sol3 = Solution3()
 
-    # sol2.run(nums=mnums[:])
-    # sol3.run(nums=mnums[:])
+    # sol0.run(nums=mnums[:])
+    # # sol1.run(nums=mnums[:])
+
+    # # sol2.run(nums=mnums[:])
+    # # sol3.run(nums=mnums[:])
