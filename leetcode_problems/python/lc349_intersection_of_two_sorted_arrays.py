@@ -4,6 +4,9 @@ class Solution:
         nums1: list[int],
         nums2: list[int],
     ) -> list[int]:
+        nums1.sort()
+        nums2.sort()
+
         p1 = 0
         p2 = 0
 

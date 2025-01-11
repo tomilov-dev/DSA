@@ -8,6 +8,7 @@ Example 1:
 Input: nums = [2,2,1]
 Output: 1
 """
+
 from time_measure import repeater
 
 
@@ -50,11 +51,19 @@ class Solution2(object):
         return xor
 
 
+class Solution:
+    def singleNumber(
+        self,
+        nums: list[int],
+    ) -> int:
+        xor = 0
+        for num in nums:
+            xor ^= num
+        return xor
+
+
 if __name__ == "__main__":
     nums = [2, 2, 1]
+    nums = [4, 1, 2, 1, 2]
 
-    sol1 = Solution1()
-    sol2 = Solution2()
-
-    # print(sol1.run(nums))
-    print(sol2.run(nums))
+    print(Solution().singleNumber(nums))

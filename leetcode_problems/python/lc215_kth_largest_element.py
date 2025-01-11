@@ -1,3 +1,4 @@
+import heapq
 import random
 from typing import List
 
@@ -51,6 +52,40 @@ class Solution:
 
     def findKthLargest(self, nums: List[int], k: int) -> int:
         return self.quickselect(nums, 0, len(nums) - 1, k)
+
+
+class SolutionWithHeapq:
+    def findKthLargest(
+        self,
+        nums: List[int],
+        k: int,
+    ) -> int:
+        heap = nums
+        heapq.heapify(heap)
+
+        large = -1
+        for _ in range(k - 1):
+            large = heapq.heappop(heap)
+
+        return large
+
+
+class SolutionWithHeapqPartial:
+    def findKthLargest(
+        self,
+        nums: List[int],
+        k: int,
+    ) -> int:
+        heap = nums[:k]
+        heapq.heapify(heap)
+        for num in nums[k:]:
+            if num <= heap[0]:
+                continue
+
+            heapq.heappop(heap)
+            heapq.heappush(heap, num)
+
+        return heap[0]
 
 
 if __name__ == "__main__":

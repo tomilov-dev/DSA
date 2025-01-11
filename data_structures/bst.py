@@ -1,13 +1,15 @@
 from abc import ABC, abstractmethod
-from typing import Callable, Any
+from typing import Callable
+from typing import Any
+from typing import Optional
 from collections import deque
 
 
 class AbstractTreeNode:
     key: int
-    left: "AbstractTreeNode" | None
-    right: "AbstractTreeNode" | None
-    parent: "AbstractTreeNode" | None
+    left: Optional["AbstractTreeNode"]
+    right: Optional["AbstractTreeNode"]
+    parent: Optional["AbstractTreeNode"]
 
     empty: bool
 

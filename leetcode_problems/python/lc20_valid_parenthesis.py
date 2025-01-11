@@ -10,6 +10,7 @@ Every close bracket has a corresponding open bracket of the same type.
 Input: s = "()"
 Output: true
 """
+
 from time_measure import repeater
 
 
@@ -88,6 +89,28 @@ class Solution2(object):
                 if (last_open, paren) not in matches:
                     return False
         return len(stack) == 0
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
+
+        stack = []
+        chars = {"(": ")", "{": "}", "[": "]"}
+        for char in s:
+            if char in chars:
+                stack.append(char)
+                continue
+
+            if not stack:
+                return False
+
+            to_close = chars[stack.pop()]
+            if to_close != char:
+                return False
+
+        return not stack
 
 
 if __name__ == "__main__":
