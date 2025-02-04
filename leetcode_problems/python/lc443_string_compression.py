@@ -16,6 +16,7 @@ Input: chars = ["a","a","b","b","c","c","c"]
 Output: Return 6, and the first 6 characters of the input array should be: ["a","2","b","2","c","3"]
 Explanation: The groups are "aa", "bb", and "ccc". This compresses to "a2b2c3".
 """
+
 from time_measure import repeater
 
 
@@ -47,6 +48,31 @@ class Solution1:
             walker += 1
 
         return walker
+
+
+class Solution:
+    def compress(self, chars: list[str]) -> int:
+        p1 = 0
+        p2 = 0
+        res = []
+        while p1 < len(chars):
+            while p2 + 1 < len(chars) and chars[p2] == chars[p2 + 1]:
+                p2 += 1
+
+            size = p2 - p1 + 1
+            if size == 1:
+                res.append(chars[p2])
+            else:
+                res.append(chars[p2])
+                res += list(str(size))
+
+            p2 += 1
+            p1 = p2
+
+        for i in range(len(res)):
+            chars[i] = res[i]
+
+        return len(res)
 
 
 if __name__ == "__main__":
