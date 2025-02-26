@@ -45,14 +45,3 @@ function construct(
 function constructMaximumBinaryTree(nums: number[]): TreeNode2 | null {
   return construct(nums, 0, nums.length - 1);
 }
-
-function test() {
-  let nums = [3, 2, 1, 6, 0, 5];
-
-  let root = constructMaximumBinaryTree(nums);
-  if (root) {
-    console.log(root.val);
-  }
-}
-
-test();

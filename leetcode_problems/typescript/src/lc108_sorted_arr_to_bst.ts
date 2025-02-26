@@ -52,12 +52,3 @@ function printNode(node: TreeNode1): void {
   }
   console.log(node.val);
 }
-
-function test() {
-  let nums = [-10, -3, 0, 5, 9];
-  let root = sortedArrayToBST(nums, 0, nums.length - 1);
-
-  inorder_travesal(root, printNode);
-}
-
-test();
