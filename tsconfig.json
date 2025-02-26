@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./leetcode_problems/typescript/src",
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceMap": true
+  },
+  "include": ["leetcode_problems/typescript/src/**/*"],
+  "exclude": ["dist"]
+}

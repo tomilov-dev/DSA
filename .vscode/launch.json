@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "configurations": [
+    {
+      "name": "C++ Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/cpp_output",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "build",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "logging": {
+        "engineLogging": true
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "TypeScript Launch",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/dist/${fileBasenameNoExtension}.js",
+      "preLaunchTask": "tsc: build",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    }
+  ]
+}

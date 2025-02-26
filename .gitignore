@@ -5,8 +5,8 @@ __pycache__
 **/.pytest_cache
 *.pdf
 *.o
-.vscode
-.vscode/*
 .code-workspace
 **/*.js
 **/node_modules
+**/dist
+**/cpp_output
