@@ -1,5 +1,6 @@
 {
     "github.copilot.enable": false,
+    "github.copilot.editor.enableAutoCompletions": false,
     "files.associations": {
         "dj-*.html": "django-html",
         "ostream": "cpp",
@@ -54,6 +55,7 @@
         "streambuf": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "expected": "cpp"
+        "expected": "cpp",
+        "map": "cpp"
     }
 }
