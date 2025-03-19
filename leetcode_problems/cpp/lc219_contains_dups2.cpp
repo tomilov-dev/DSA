@@ -62,6 +62,35 @@ public:
     }
 };
 
+class Solution2
+{
+public:
+    bool containsNearbyDuplicate(vector<int> &nums, int k)
+    {
+        int p1 = 0;
+        int p2 = 1;
+        unordered_map<int, int> map({{nums[p1], 1}});
+        for (; p2 <= k && p2 < nums.size(); p2++)
+        {
+            map[nums[p2]]++;
+            if (map[nums[p2]] > 0)
+            {
+                return true;
+            }
+        }
+        for (; p2 < nums.size(); p1++, p2++)
+        {
+            map[nums[p1]]--;
+            if (map[nums[p2]] > 0)
+            {
+                return true;
+            }
+            map[nums[p2]]++;
+        }
+        return false;
+    }
+};
+
 int main()
 {
     vector<int> nums = {1, 2, 3, 1};

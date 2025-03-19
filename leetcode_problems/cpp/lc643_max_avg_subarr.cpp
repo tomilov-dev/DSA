@@ -26,6 +26,28 @@ public:
     }
 };
 
+class Solution2
+{
+public:
+    double findMaxAverage(vector<int> &nums, int k)
+    {
+        double sum = 0;
+        double max = 0;
+        for (int i = 0; i < k && i < nums.size(); i++)
+        {
+            sum += nums[i];
+        }
+        max = sum / k;
+        for (int i = k; i < nums.size(); i++)
+        {
+            sum -= nums[i - k];
+            sum += nums[i];
+            max = std::max(max, sum / k);
+        }
+        return max;
+    }
+};
+
 int main()
 {
     vector<int> nums = {1, 12, -5, -6, 50, 3};
