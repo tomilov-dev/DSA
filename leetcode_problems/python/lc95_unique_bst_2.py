@@ -3,35 +3,26 @@ from utils import print_tree
 
 
 class Solution:
-    def generateTrees(
-        self,
-        n: int,
-    ) -> list[TreeNode | None]:
-        if n == 0:
-            return []
-
-        def generate(
-            start: int,
-            end: int,
-        ) -> list[TreeNode | None]:
-            if start > end:
+    def generateTrees(self, n: int) -> list[TreeNode]:
+        def gen(i: int, n: int) -> list[TreeNode | None]:
+            if i > n:
                 return [None]
 
-            all_trees = []
-            for i in range(start, end + 1):
-                left_trees = generate(start, i - 1)
-                right_trees = generate(i + 1, end)
+            nodes = []
+            for j in range(i, n + 1):
+                lnodes = gen(i, j - 1)
+                rnodes = gen(j + 1, n)
+                for left in lnodes:
+                    for right in rnodes:
+                        head = TreeNode(j)
+                        head.left = left
+                        head.right = right
+                        nodes.append(head)
 
-                for l in left_trees:
-                    for r in right_trees:
-                        current_tree = TreeNode(i)
-                        current_tree.left = l
-                        current_tree.right = r
-                        all_trees.append(current_tree)
+            return nodes
 
-            return all_trees
-
-        return generate(1, n)
+        trees = gen(1, n)
+        return [t for t in trees if t is not None]
 
 
 if __name__ == "__main__":
