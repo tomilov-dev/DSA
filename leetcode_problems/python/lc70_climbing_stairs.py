@@ -95,7 +95,7 @@ class WrongInPythonSolution5(object):
         return n
 
 
-class SolutionDPBottomUp:
+class SolutionBottomUp:
     def climbStairs(self, n: int) -> int:
         dp = [0] * (n + 1)
         dp[0] = 1
@@ -107,8 +107,7 @@ class SolutionDPBottomUp:
 
 if __name__ == "__main__":
     n = 4
-
-    print(SolutionDPBottomUp().climbStairs(n))
+    print(SolutionBottomUp().climbStairs(n))
 
     # sol1 = Solution1()
     # sol2 = Solution2()

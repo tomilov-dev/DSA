@@ -62,6 +62,20 @@ class Solition3(object):
         return max_profit
 
 
+class SolutionDPBottomUp:
+    def maxProfit(
+        self,
+        prices: list[int],
+    ) -> int:
+        n = len(prices)
+        dp = [0] * n
+        mp = prices[0]
+        for i in range(1, n):
+            dp[i] = min(prices[i] - mp, dp[i - 1])
+            mp = min(prices[i], mp)
+        return dp[n - 1]
+
+
 if __name__ == "__main__":
     prices = [1, 4, 2, 6]
 
