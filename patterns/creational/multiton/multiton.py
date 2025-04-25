@@ -26,3 +26,7 @@ def client_code():
 
     print(multiton1 is multiton3)  # Output: True
     print(multiton1 is multiton2)  # Output: False
+
+
+if __name__ == "__main__":
+    client_code()
