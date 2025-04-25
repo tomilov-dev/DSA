@@ -1,10 +1,11 @@
-class Solution:
+class Solution(object):
     def minPathSum(
         self,
         grid: list[list[int]],
     ) -> int:
         m = len(grid)
         n = len(grid[0])
+
         dp = [[10**5] * (n + 1) for _ in range(m + 1)]
         dp[1][1] = grid[0][0]
         for i in range(1, m + 1):
@@ -13,6 +14,7 @@ class Solution:
                     continue
                 c = grid[i - 1][j - 1]
                 dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + c
+
         return dp[m][n]
 
 

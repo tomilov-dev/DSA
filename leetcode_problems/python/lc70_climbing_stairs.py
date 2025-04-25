@@ -107,7 +107,6 @@ class SolutionBottomUp:
 
 if __name__ == "__main__":
     n = 4
-
     print(SolutionBottomUp().climbStairs(n))
 
     # sol1 = Solution1()
