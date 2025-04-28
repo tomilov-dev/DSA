@@ -28,6 +28,40 @@ class Solution:
         return backtrack(0)
 
 
+class SolutionDPBottomUp:
+    def makesquare(
+        self,
+        matchsticks: list[int],
+    ) -> bool:
+        m = matchsticks
+        n = len(m)
+        total = sum(m)
+        if total % 4 != 0:
+            return False
+
+        t = total // 4
+        if max(m) > t:
+            return False
+
+        full_mask = (1 << n) - 1
+        dp = [-1] * (1 << n)
+        dp[0] = 0
+
+        for mask in range(1 << n):
+            if dp[mask] == -1:
+                continue
+
+            for i in range(n):
+                if mask & (1 << i):
+                    continue
+
+                new_mask = mask | (1 << i)
+                if dp[mask] + m[i] <= t:
+                    dp[new_mask] = (dp[mask] + m[i]) % t
+
+        return dp[full_mask] == 0
+
+
 if __name__ == "__main__":
     matchsticks = [1, 1, 2, 2, 2]
     matchsticks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, 4, 3, 2, 1]

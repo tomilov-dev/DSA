@@ -21,3 +21,7 @@ def client_code():
     print(singleton2.value)  # Output: First Instance
 
     print(singleton1 is singleton2)  # Output: True
+
+
+if __name__ == "__main__":
+    client_code()
