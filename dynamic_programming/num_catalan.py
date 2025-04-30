@@ -23,7 +23,23 @@ class SolutionTopDown:
         return mem[n]
 
 
+class SolutionBinomial:
+    def binom(self, n: int, k: int):
+        res = 1
+        if k > n - k:
+            k = n - k
+        for i in range(k):
+            res *= n - i
+            res //= i + 1
+        return res
+
+    def findCatalan(self, n: int) -> int:
+        cat = self.binom(n * 2, n)
+        return cat // (n + 1)
+
+
 if __name__ == "__main__":
     n = 6
     print(Solution().findCatalan(n))
     print(SolutionTopDown().findCatalan(n))
+    print(SolutionBinomial().findCatalan(n))
