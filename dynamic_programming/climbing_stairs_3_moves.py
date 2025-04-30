@@ -22,7 +22,19 @@ class SolutionOptimized:
         return n3
 
 
+class SolutionTopDown:
+    def countWays(self, n: int) -> int:
+        def backtrack(i: int) -> int:
+            if i not in mem:
+                mem[i] = backtrack(i - 1) + backtrack(i - 2) + backtrack(i - 3)
+            return mem[i]
+
+        mem = {0: 1, 1: 1, 2: 2}
+        return backtrack(n)
+
+
 if __name__ == "__main__":
-    n = 3
+    n = 19
     print(Solution().countWays(n))
     print(SolutionOptimized().countWays(n))
+    print(SolutionTopDown().countWays(n))

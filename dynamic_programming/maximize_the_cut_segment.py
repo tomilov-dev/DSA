@@ -17,6 +17,30 @@ class Solution:
         return max(dp[n], 0)
 
 
+class SolutionTopDown:
+    def maximizeTheCuts(
+        self,
+        n: int,
+        x: int,
+        y: int,
+        z: int,
+    ) -> int:
+        def backtrack(i: int) -> int:
+            if i < 0:
+                return -(10**6)
+            if i == 0:
+                return 0
+            if i in mem:
+                return mem[i]
+
+            mem[i] = 1 + max(backtrack(i - x), backtrack(i - y), backtrack(i - z))
+            return mem[i]
+
+        mem = {}
+        result = backtrack(n)
+        return max(result, 0)
+
+
 if __name__ == "__main__":
     n = 4
     x = 2

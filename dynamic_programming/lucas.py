@@ -29,6 +29,19 @@ class SolutionOptimized:
         return n2
 
 
+class SolutionTopDown:
+    def lucas(self, n: int) -> int:
+        def backtrack(i: int) -> int:
+            if i not in mem:
+                mem[i] = backtrack(i - 1) + backtrack(i - 2)
+            return mem[i]
+
+        mem = {0: 2, 1: 1}
+        return backtrack(n)
+
+
 if __name__ == "__main__":
     n = 5
     print(Solution().lucas(n))
+    print(SolutionOptimized().lucas(n))
+    print(SolutionTopDown().lucas(n))

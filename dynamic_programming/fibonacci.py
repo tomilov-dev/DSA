@@ -24,7 +24,19 @@ class SolutionOptimized:
         return cur
 
 
+class SolutionTopDown:
+    def nthFibonacci(self, n: int) -> int:
+        def backtrack(i: int) -> int:
+            if i not in mem:
+                mem[i] = backtrack(i - 1) + backtrack(i - 2)
+            return mem[i]
+
+        mem = {0: 0, 1: 1}
+        return backtrack(n)
+
+
 if __name__ == "__main__":
-    n = 5
+    n = 7
     print(Solution().nthFibonacci(n))
     print(SolutionOptimized().nthFibonacci(n))
+    print(SolutionTopDown().nthFibonacci(n))
