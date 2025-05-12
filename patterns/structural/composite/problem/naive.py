@@ -7,8 +7,7 @@ from abc import abstractmethod
 from typing import Union
 
 
-## Есть система заказов - от товара до коробки заказов
-class Product:
+class IProduct(ABC):
     def __init__(
         self,
         id: str,
@@ -20,14 +19,21 @@ class Product:
         self.price = price
 
 
-class ProductSet:
+## Есть система заказов - от товара до коробки заказов
+class Product(IProduct):
+    pass
+
+
+class ProductSet(IProduct):
     def __init__(
         self,
         id: str,
         product: Product,
         quantity: int,
         price: int,
-    ) -> int:
+    ) -> None:
+        super().__init__(id, product.name, product.price)
+
         self.id = id
         self.product = product
         self.quantity = quantity
@@ -41,7 +47,7 @@ class OrderItem:
     def __init__(
         self,
         id: str,
-        product: Product,
+        product: IProduct,
         quantity: int,
     ) -> None:
         self.id = id
@@ -85,7 +91,7 @@ class OrderBox:
         self.id = id
         self.orders = orders
 
-    def total(self) -> int:
+    def total(self) -> float:
         return sum(o.total() for o in self.orders)
 
 
