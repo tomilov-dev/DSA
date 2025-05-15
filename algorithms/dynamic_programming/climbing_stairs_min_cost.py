@@ -1,8 +1,34 @@
-class Solution:
-    def minCostClimbingStairs(
-        self,
-        cost: list[int],
-    ) -> int:
+class SolutionRecursive:
+    def minCostClimbingStairs(self, cost: list[int]) -> int:
+        def rec(i: int) -> int:
+            if i == 0:
+                return cost[0]
+            if i == 1:
+                return cost[1]
+            return cost[i] + min(rec(i - 1), rec(i - 2))
+
+        n = len(cost)
+        return min(rec(n - 1), rec(n - 2))
+
+
+class SolutionTopDown:
+    def minCostClimbingStairs(self, cost: list[int]) -> int:
+        def rec(i: int) -> int:
+            if i == 0:
+                return cost[0]
+            if i == 1:
+                return cost[1]
+            if i not in mem:
+                mem[i] = cost[i] + min(rec(i - 1), rec(i - 2))
+            return mem[i]
+
+        n = len(cost)
+        mem = {}
+        return min(rec(n - 1), rec(n - 2))
+
+
+class SolutionBottomUp:
+    def minCostClimbingStairs(self, cost: list[int]) -> int:
         n = len(cost)
         dp = [0] * n
         dp[0] = cost[0]
@@ -12,40 +38,23 @@ class Solution:
         return min(dp[n - 1], dp[n - 2])
 
 
-class SolutionOptimized:
-    def minCostClimbingStairs(
-        self,
-        cost: list[int],
-    ) -> int:
+class SolutionBottomUpOptimized:
+    def minCostClimbingStairs(self, cost: list[int]) -> int:
         n = len(cost)
         n1 = cost[0]
         n2 = cost[1]
         for i in range(2, n):
-            cur = cost[i] + min(n1, n2)
+            n3 = cost[i] + min(n1, n2)
             n1 = n2
-            n2 = cur
+            n2 = n3
         return min(n1, n2)
-
-
-class SolutionTopDown:
-    def minCostClimbingStairs(
-        self,
-        cost: list[int],
-    ) -> int:
-        def backtrack(i: int) -> int:
-            if i not in mem:
-                mem[i] = cost[i] + min(backtrack(i - 1), backtrack(i - 2))
-            return mem[i]
-
-        n = len(cost)
-        mem = {0: cost[0], 1: cost[1]}
-        backtrack(n - 1)
-        return min(mem[n - 1], mem[n - 2])
 
 
 if __name__ == "__main__":
     cost = [10, 15, 20]
-    cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
-    print(Solution().minCostClimbingStairs(cost))
-    print(SolutionOptimized().minCostClimbingStairs(cost))
+    # cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+
+    print(SolutionRecursive().minCostClimbingStairs(cost))
     print(SolutionTopDown().minCostClimbingStairs(cost))
+    print(SolutionBottomUp().minCostClimbingStairs(cost))
+    print(SolutionBottomUpOptimized().minCostClimbingStairs(cost))
