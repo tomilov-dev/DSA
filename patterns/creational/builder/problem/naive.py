@@ -12,6 +12,13 @@ class InternetSpeed(str, Enum):
     FAST = "Fast"
 
 
+DEFAULT_SPEED_COST = {
+    InternetSpeed.SLOW: 0.75,
+    InternetSpeed.MEDIUM: 1,
+    InternetSpeed.FAST: 1.25,
+}
+
+
 class Minutes:
     def __init__(
         self,
@@ -54,7 +61,7 @@ class TarrifConfig:
         minute_cost: float,
         internet_cost: float,
         message_cost: float,
-        speed_cost: dict[InternetSpeed, float] | None = None,
+        speed_cost: dict[InternetSpeed, float],
         roaming_kf: float = 1,
     ):
         self.minute_cost = minute_cost
@@ -62,12 +69,6 @@ class TarrifConfig:
         self.message_cost = message_cost
         self.speed_cost = speed_cost
         self.roaming_kf = roaming_kf
-        if self.speed_cost is None:
-            self.speed_cost = {
-                InternetSpeed.SLOW: 0.75,
-                InternetSpeed.MEDIUM: 1,
-                InternetSpeed.FAST: 1.25,
-            }
 
 
 class TarrifBase(ABC):
@@ -112,7 +113,7 @@ class BaseTarrif(TarrifBase):
             internet=self.internet,
             messages=self.messages,
             add_ons=self.add_ons,
-            config=TarrifConfig(2, 6, 1),
+            config=TarrifConfig(2, 6, 1, DEFAULT_SPEED_COST),
         )
 
 
@@ -197,7 +198,14 @@ class RoamingTarrif(TarrifBase):
             minutes=self.minutes,
             internet=self.internet,
             messages=self.messages,
-            config=TarrifConfig(2, 6, 1, roaming_kf=self.roaming.kf),
+            add_ons=[],
+            config=TarrifConfig(
+                2,
+                6,
+                1,
+                DEFAULT_SPEED_COST,
+                roaming_kf=self.roaming.kf,
+            ),
         )
 
 
