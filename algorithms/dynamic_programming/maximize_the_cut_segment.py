@@ -1,4 +1,4 @@
-class Solution:
+class SolutionRecursive:
     def maximizeTheCuts(
         self,
         n: int,
@@ -6,15 +6,14 @@ class Solution:
         y: int,
         z: int,
     ) -> int:
-        sizes = [x, y, z]
-        dp = [-1] * (n + 1)
-        dp[0] = 0
-        for size in sizes:
-            for i in range(size, n + 1):
-                if dp[i - size] == -1:
-                    continue
-                dp[i] = max(dp[i], dp[i - size] + 1)
-        return max(dp[n], 0)
+        def rec(i: int) -> int:
+            if i == 0:
+                return 0
+            if i < 0:
+                return -(10**5)
+            return 1 + max(rec(i - x), rec(i - y), rec(i - z))
+
+        return max(0, rec(n))
 
 
 class SolutionTopDown:
@@ -25,20 +24,36 @@ class SolutionTopDown:
         y: int,
         z: int,
     ) -> int:
-        def backtrack(i: int) -> int:
+        def rec(i: int) -> int:
             if i < 0:
-                return -(10**6)
+                return -(10**5)
             if i == 0:
                 return 0
-            if i in mem:
-                return mem[i]
-
-            mem[i] = 1 + max(backtrack(i - x), backtrack(i - y), backtrack(i - z))
+            if i not in mem:
+                mem[i] = 1 + max(rec(i - x), rec(i - y), rec(i - z))
             return mem[i]
 
         mem = {}
-        result = backtrack(n)
-        return max(result, 0)
+        return max(0, rec(n))
+
+
+class SolutionBottomUp:
+    def maximizeTheCuts(
+        self,
+        n: int,
+        x: int,
+        y: int,
+        z: int,
+    ) -> int:
+        dp = [-1] * (n + 1)
+        dp[0] = 0
+        sizes = [x, y, z]
+        for size in sizes:
+            for i in range(size, n + 1):
+                if dp[i - size] == -1:
+                    continue
+                dp[i] = max(dp[i], 1 + dp[i - size])
+        return max(0, dp[n])
 
 
 if __name__ == "__main__":
@@ -62,4 +77,6 @@ if __name__ == "__main__":
     y = 5
     z = 2
 
-    print(Solution().maximizeTheCuts(n, x, y, z))
+    print(SolutionRecursive().maximizeTheCuts(n, x, y, z))
+    print(SolutionTopDown().maximizeTheCuts(n, x, y, z))
+    print(SolutionBottomUp().maximizeTheCuts(n, x, y, z))
