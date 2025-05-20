@@ -1,53 +1,61 @@
-class Solution:
+class SolutionRecursive:
     def nthTribonacci(self, n: int) -> int:
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
-        elif n == 2:
-            return 1
+        def rec(i: int) -> int:
+            if i == 0:
+                return 0
+            if i == 1:
+                return 1
+            if i == 2:
+                return 1
+            return rec(i - 1) + rec(i - 2) + rec(i - 3)
 
-        dp = [0] * (n + 1)
-        dp[1] = 1
-        dp[2] = 1
-        for i in range(2, n):
-            dp[i + 1] = dp[i] + dp[i - 1] + dp[i - 2]
-        return dp[n]
-
-
-class SolutionOptimized:
-    def nthTribonacci(self, n: int) -> int:
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
-        elif n == 2:
-            return 1
-
-        n1 = 0
-        n2 = 1
-        n3 = 1
-        for _ in range(2, n):
-            cur = n1 + n2 + n3
-            n1 = n2
-            n2 = n3
-            n3 = cur
-        return n3
+        return rec(n)
 
 
 class SolutionTopDown:
     def nthTribonacci(self, n: int) -> int:
-        def backtrack(i: int) -> int:
+        def rec(i: int) -> int:
+            if i == 0:
+                return 0
+            if i == 1:
+                return 1
+            if i == 2:
+                return 1
+
             if i not in mem:
-                mem[i] = backtrack(i - 1) + backtrack(i - 2) + backtrack(i - 3)
+                mem[i] = rec(i - 1) + rec(i - 2) + rec(i - 3)
             return mem[i]
 
-        mem = {0: 0, 1: 1, 2: 1}
-        return backtrack(n)
+        mem = {}
+        return rec(n)
+
+
+class SolutionBottomUp:
+    def nthTribonacci(self, n: int) -> int:
+        dp = [0] * (n + 1)
+        dp[1] = 1
+        dp[2] = 1
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3]
+        return dp[n]
+
+
+class SolutionBottomUpOptimized:
+    def nthTribonacci(self, n: int) -> int:
+        n1 = 0
+        n2 = 1
+        n3 = 1
+        for i in range(3, n + 1):
+            n4 = n1 + n2 + n3
+            n1 = n2
+            n2 = n3
+            n3 = n4
+        return n3
 
 
 if __name__ == "__main__":
-    n = 15
-    print(Solution().nthTribonacci(n))
-    print(SolutionOptimized().nthTribonacci(n))
+    n = 10
+    print(SolutionRecursive().nthTribonacci(n))
     print(SolutionTopDown().nthTribonacci(n))
+    print(SolutionBottomUp().nthTribonacci(n))
+    print(SolutionBottomUpOptimized().nthTribonacci(n))

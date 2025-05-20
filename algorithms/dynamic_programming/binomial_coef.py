@@ -1,6 +1,3 @@
-from pprint import pprint
-
-
 class SolutionBottomUp:
     def nCr(self, n: int, r: int) -> int:
         if r > n:
