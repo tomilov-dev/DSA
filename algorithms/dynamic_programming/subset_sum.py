@@ -59,6 +59,48 @@ class SolutionBottomUp:
         arr: list[int],
         sum: int,
     ) -> bool:
+        n = len(arr)
+        dp = [[False] * (sum + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = True
+
+        for i in range(1, n + 1):
+            for j in range(1, sum + 1):
+                if j < arr[i - 1]:
+                    dp[i][j] = dp[i - 1][j]
+                else:
+                    dp[i][j] = dp[i - 1][j] or dp[i - 1][j - arr[i - 1]]
+        return dp[n][sum]
+
+
+class SolutionBottomUpOptimized:
+    def isSubsetSum(
+        self,
+        arr: list[int],
+        sum: int,
+    ) -> bool:
+        n = len(arr)
+        dp = [False] * (sum + 1)
+        ndp = [False] * (sum + 1)
+
+        dp[0] = True
+        for i in range(1, n + 1):
+            for j in range(sum + 1):
+                if j < arr[i - 1]:
+                    ndp[j] = dp[j]
+                else:
+                    ndp[j] = dp[j] or dp[j - arr[i - 1]]
+            dp, ndp = ndp, dp
+
+        return dp[sum]
+
+
+class SolutionBottomUpSuperOptimized:
+    def isSubsetSum(
+        self,
+        arr: list[int],
+        sum: int,
+    ) -> bool:
         dp = [False] * (sum + 1)
         dp[0] = True
         for num in arr:
@@ -74,3 +116,4 @@ if __name__ == "__main__":
     print(SolutionRecursive().isSubsetSum(arr, sum))
     print(SolutionTopDown().isSubsetSum(arr, sum))
     print(SolutionBottomUp().isSubsetSum(arr, sum))
+    print(SolutionBottomUpSuperOptimized().isSubsetSum(arr, sum))
