@@ -103,6 +103,10 @@ def client_code():
     button = Button()
     mediator = DialogMediator(input, checkbox, button)
 
+    input.mediator = mediator
+    checkbox.mediator = mediator
+    button.mediator = mediator
+
     input.set("Ivan")
     checkbox.set()
     button.set(input, checkbox)
