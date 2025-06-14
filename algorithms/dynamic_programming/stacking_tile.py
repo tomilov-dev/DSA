@@ -8,14 +8,14 @@ class SolutionRecursive:
         def rec(height: int, size: int) -> int:
             if height == 0:
                 return 1
-            if size == 0:
+            if height < 0 or size <= 0:
                 return 0
 
-            res = 0
-            for comp_height in range(min(k, height) + 1):
-                res += rec(height - comp_height, size - 1)
-
-            return res
+            c = 0
+            # min(k, height) - не асимптотическая оптимизация
+            for i in range(0, min(k, height) + 1):
+                c += rec(height - i, size - 1)
+            return c
 
         return rec(n, m)
 
@@ -30,16 +30,16 @@ class SolutionTopDown:
         def rec(height: int, size: int) -> int:
             if height == 0:
                 return 1
-            if size == 0:
+            if height < 0 or size <= 0:
                 return 0
 
             key = (height, size)
             if key not in mem:
-                mem[key] = 0
-                res = 0
-                for comp_height in range(min(k, height) + 1):
-                    res += rec(height - comp_height, size - 1)
-                mem[key] = res
+                c = 0
+                # min(k, height) - не асимптотическая оптимизация
+                for i in range(0, min(k, height) + 1):
+                    c += rec(height - i, size - 1)
+                mem[key] = c
             return mem[key]
 
         mem = dict()
@@ -53,19 +53,17 @@ class SolutionBottomUp:
         m: int,
         k: int,
     ) -> int:
-        # n - count of rows in stack (height)
-        # m - count of cols in stack (width)
-        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        # Нулевая строка обязана быть из 1
         for j in range(m + 1):
             dp[0][j] = 1
 
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                dp[i][j] = dp[i][j - 1]
-                for h in range(1, min(k, i) + 1):
-                    dp[i][j] += dp[i - h][j - 1]
-
-        return dp[n][m]
+        for h in range(1, n + 1):
+            for s in range(1, m + 1):
+                for i in range(0, min(k, h) + 1):
+                    # i = 0 => dp[h][s - 1] - инициализация
+                    dp[h][s] += dp[h - i][s - 1]
+        return dp[h][s]
 
 
 class SolutionBottomUpOptimized:
@@ -77,17 +75,13 @@ class SolutionBottomUpOptimized:
     ) -> int:
         dp = [0] * (n + 1)
         ndp = [0] * (n + 1)
-        dp[0] = 1
-
-        for j in range(1, m + 1):
+        for s in range(1, m + 1):
             dp[0] = 1
-            for i in range(1, n + 1):
-                ndp[i] = dp[i]
-                for h in range(1, min(k, i) + 1):
-                    ndp[i] += dp[i - h]
+            for h in range(1, n + 1):
+                for i in range(0, min(k, h) + 1):
+                    ndp[h] += dp[h - i]
             dp, ndp = ndp, dp
-
-        return dp[n]
+        return dp[s]
 
 
 if __name__ == "__main__":
@@ -98,6 +92,7 @@ if __name__ == "__main__":
     n = 3
     m = 3
     k = 2
+
     print(SolutionRecursive().stack(n, m, k))
     print(SolutionTopDown().stack(n, m, k))
     print(SolutionBottomUp().stack(n, m, k))

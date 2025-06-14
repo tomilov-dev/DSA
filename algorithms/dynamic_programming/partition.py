@@ -1,3 +1,13 @@
+"""
+Нужно определить - можно ли разбить массив на две части с равной суммой.
+Равная сумма - это sum(arr) // 2
+Если sum(arr) % 2 == 1 - тогда невозможно
+
+Можно интерпретировать задачу как "Найти подмножество с суммой = sum(arr) // 2"
+Если такое подмножество существует, то существует и другое подмножество sum(arr) // 2
+"""
+
+
 class SolutionRecursive:
     def equalPartition(self, arr: list[int]) -> bool:
         def rec(n: int, sm: int) -> bool:
@@ -7,7 +17,10 @@ class SolutionRecursive:
                 return False
 
             if arr[n - 1] > sm:
+                # Пропускаем, т.к. не можем добавить текущий элемент в подмножество
+                # Потому что он больше текущей таргет-суммы
                 return rec(n - 1, sm)
+            # Проверяем варианты - добавить или не добавить элемент в подмножество
             return rec(n - 1, sm) or rec(n - 1, sm - arr[n - 1])
 
         sm = sum(arr)
@@ -24,8 +37,8 @@ class SolutionTopDown:
             if n <= 0:
                 return False
 
-            if n not in mem:
-                key = (n - 1, sm)
+            key = (n, sm)
+            if key not in mem:
                 if arr[n - 1] > sm:
                     mem[key] = rec(n - 1, sm)
                 else:
@@ -86,6 +99,7 @@ if __name__ == "__main__":
     arr = [1, 5, 11, 5]
     arr = [1, 3, 5]
     arr = [6, 2, 3, 10, 2, 9, 10, 2]
+
     print(SolutionRecursive().equalPartition(arr))
     print(SolutionTopDown().equalPartition(arr))
     print(SolutionBottomUp().equalPartition(arr))

@@ -9,7 +9,8 @@ class SolutionRecursive:
                 return True
 
             for j in range(i, n):
-                if s[i : j + 1] in words and rec(j + 1):
+                substr = s[i : j + 1]
+                if substr in words and rec(j + 1):
                     return True
             return False
 
@@ -31,15 +32,15 @@ class SolutionTopDown:
             if i not in mem:
                 mem[i] = False
                 for word in words:
-                    if s[i : i + len(word)] == word and rec(i + len(word)):
+                    substr = s[i : i + len(word)]
+                    if substr == word and rec(i + len(word)):
                         mem[i] = True
-                        break
-
+                        return mem[i]
             return mem[i]
 
         n = len(s)
-        mem = dict()
         words = set(dictionary)
+        mem = {}
         return rec(0)
 
 
@@ -52,12 +53,17 @@ class SolutionBottomUp:
         n = len(s)
         dp = [False] * (n + 1)
         dp[0] = True
-        for i in range(1, n + 1):
+
+        # Здесь наблюдается запутанность с индексами
+        # Потому что s и dp различаются по индексации на +1
+        # Поэтому dp[start] - это ничто иное, как проверка подстроки s[: start] на "валидность"
+        # Если s[: start] не является "валидной", то все дальнейшие проверки не имеют смысла
+        # Если start = 0 - тогда 100% можно, потому что s[: start] пустая строка по определению
+        for end in range(1, n + 1):
             for w in dictionary:
-                start = i - len(w)
-                if start >= 0 and dp[start] and s[start : start + len(w)] == w:
-                    dp[i] = True
-                    break
+                start = end - len(w)
+                if start >= 0 and dp[start] and w == s[start:end]:
+                    dp[end] = True
         return dp[n]
 
 

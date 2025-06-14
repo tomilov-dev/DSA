@@ -10,6 +10,7 @@ class SolutionRecursive:
         def rec(i: int, j: int, c: int = 0) -> int:
             if i >= len(s1) or j >= len(s2):
                 return c
+
             return max(
                 rec(i + 1, j + 1, c + int(s1[i] == s2[j])),
                 rec(i + 1, j, 0),
