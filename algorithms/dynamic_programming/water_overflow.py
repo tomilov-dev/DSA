@@ -48,10 +48,12 @@ if __name__ == "__main__":
     k = 397
     r = 21
     c = 16
+
     print(Solution().waterOverflow(k, r, c))
     print(SolutionOptimized().waterOverflow(k, r, c))
 
     # b = 0.5
     # n = b / 0.5
-    # print(0.5 * (n // 2 + n % 2))
+    # i = 1
+    # print(0.5 * (n // 2 + (n % 2 * i)))
     # print(0.5 * (n // 2))
