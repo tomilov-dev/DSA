@@ -47,8 +47,22 @@ class SolutionBottomUp:
         return dp[n]
 
 
+class SolutionBottomUpBackward:
+    def wordBreak(self, s: str, wordDict: list[str]) -> bool:
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[n] = True
+        word_map = set(wordDict)
+        for i in range(n - 1, -1, -1):
+            for j in range(i + 1, n + 1):
+                if s[i:j] in word_map and dp[j]:
+                    dp[i] = True
+                    break
+        return dp[0]
+
+
 if __name__ == "__main__":
     s = "leetcode"
     wordDict = ["leet", "code"]
-    sol = SolutionBottomUp()
+    sol = SolutionBottomUpBackward()
     print(sol.wordBreak(s, wordDict))
