@@ -1,4 +1,4 @@
-class Solution:
+class SolutionBottomUp:
     def maxProduct(self, nums: list[int]) -> int:
         n = len(nums)
         max_dp = [0] * n
@@ -17,9 +17,3 @@ class Solution:
                 min_dp[i] = min(nums[i], max_dp[i - 1] * nums[i])
 
         return max(max_dp)
-
-
-if __name__ == "__main__":
-    nums = [2, 3, -2, 4]
-    nums = [-2, 3, -4]
-    print(Solution().maxProduct(nums))
