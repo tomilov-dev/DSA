@@ -49,31 +49,6 @@ class AddOn:
         self.price = price
 
 
-class ITarrifBuilder(ABC):
-    def __init__(self):
-        self.reset()
-
-    @abstractmethod
-    def build_minutes(self):
-        pass
-
-    @abstractmethod
-    def build_internet(self):
-        pass
-
-    @abstractmethod
-    def build_messages(self):
-        pass
-
-    @abstractmethod
-    def build_add_ons(self):
-        pass
-
-    @abstractmethod
-    def reset(self):
-        pass
-
-
 class TarrifConfig:
     def __init__(
         self,
@@ -96,7 +71,7 @@ class TarrifConfig:
             }
 
 
-class TarrifBase(ABC):
+class ITarrif(ABC):
     def __init__(
         self,
         minutes: Minutes,
@@ -109,6 +84,23 @@ class TarrifBase(ABC):
         self.messages = messages
         self.add_ons = add_ons
 
+    @abstractmethod
+    def calculate_total(
+        self,
+        minutes: Minutes,
+        internet: Internet,
+        messages: Messages,
+        add_ons: list[AddOn],
+        config: TarrifConfig,
+    ) -> float:
+        pass
+
+    @abstractmethod
+    def total(self) -> float:
+        pass
+
+
+class TarrifBase(ITarrif):
     def calculate_total(
         self,
         minutes: Minutes,
@@ -128,6 +120,32 @@ class TarrifBase(ABC):
                 sum(ad.price for ad in add_ons),
             ]
         )
+
+
+class ITarrifBuilder(ABC):
+    def __init__(self):
+        self.tarrif: ITarrif
+        self.reset()
+
+    @abstractmethod
+    def build_minutes(self):
+        pass
+
+    @abstractmethod
+    def build_internet(self):
+        pass
+
+    @abstractmethod
+    def build_messages(self):
+        pass
+
+    @abstractmethod
+    def build_add_ons(self):
+        pass
+
+    @abstractmethod
+    def reset(self):
+        pass
 
 
 class TarrifBuilderBase(ITarrifBuilder):

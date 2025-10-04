@@ -4,6 +4,7 @@
 
 from enum import Enum
 from abc import ABC
+from abc import abstractmethod
 
 
 class InternetSpeed(str, Enum):
@@ -71,7 +72,24 @@ class TarrifConfig:
         self.roaming_kf = roaming_kf
 
 
-class TarrifBase(ABC):
+class ITarrif(ABC):
+    @abstractmethod
+    def calculate_total(
+        self,
+        minutes: Minutes,
+        internet: Internet,
+        messages: Messages,
+        add_ons: list[AddOn],
+        config: TarrifConfig,
+    ) -> float:
+        pass
+
+    @abstractmethod
+    def total(self) -> float:
+        pass
+
+
+class TarrifBase(ITarrif):
     def calculate_total(
         self,
         minutes: Minutes,
