@@ -26,6 +26,18 @@ class Radio:
         print(f"Radio volume set to {volume}")
 
 
+## Если мы захотим расширить определенный функционал для всех устройств,
+## то нам нужно будет писать новую реализацию каждого устройстваы
+class TVAdvanced(TV):
+    def mute(self) -> None:
+        print("TV volume set to 0")
+
+
+class RadioAdvanced(Radio):
+    def mute(self) -> None:
+        print("Radio volume set to 0")
+
+
 def client_code():
     ## Для управления каждый устройством нам необходимо работать с его классом напрямую
     ## В клиентском коде могут быть видны лишние или опасные детали реализации
@@ -38,6 +50,18 @@ def client_code():
     radio.turn_on()
     radio.set_volume(20)
     radio.turn_off()
+
+    tv = TVAdvanced()
+    tv.turn_on()
+    tv.set_volume(15)
+    tv.turn_off()
+    tv.mute()
+
+    radio = RadioAdvanced()
+    radio.turn_on()
+    radio.set_volume(20)
+    radio.turn_off()
+    radio.mute()
 
 
 if __name__ == "__main__":
