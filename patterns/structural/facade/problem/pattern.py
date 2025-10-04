@@ -3,7 +3,8 @@
 """
 
 import random
-
+from abc import ABC
+from abc import abstractmethod
 
 SEED = 1999
 
@@ -15,7 +16,21 @@ class InvalidBooking(Exception):
     pass
 
 
-class HallService:
+class IHallService(ABC):
+    @abstractmethod
+    def free_seats(self, hall: int) -> list[list[int]]:
+        pass
+
+    @abstractmethod
+    def is_free_seat(self, hall: int, row: int, line: int) -> bool:
+        pass
+
+    @abstractmethod
+    def check_seat(self, hall: int, row: int, line: int) -> bool:
+        pass
+
+
+class HallService(IHallService):
     def free_seats(self, hall: int) -> list[list[int]]:
         random.seed(hall)
         max_line = random.randint(7, 15)
@@ -41,19 +56,37 @@ class HallService:
         return True
 
 
-class BookingService:
+class IBookingService(ABC):
+    @abstractmethod
+    def book(self, hall: int, row: int, line: int) -> int:
+        pass
+
+
+class BookingService(IBookingService):
     def book(self, hall: int, row: int, line: int) -> int:
         print("Seat is booked. Proccess the payment.")
         return hall * 10000 + row + line
 
 
-class PaymentService:
+class IPaymentService(ABC):
+    @abstractmethod
+    def pay(self, ticket: int) -> str:
+        pass
+
+
+class PaymentService(IPaymentService):
     def pay(self, ticket: int) -> str:
         print("Ticket is payed.")
         return f"Payed ticket info {ticket}"
 
 
-class NotificationService:
+class INotificationService:
+    @abstractmethod
+    def notify(self, ticket: int) -> None:
+        pass
+
+
+class NotificationService(INotificationService):
     def notify(self, ticket: int) -> None:
         print(f"Seat booked and payed. Follow the instructions on your ticket {ticket}")
 
@@ -61,19 +94,25 @@ class NotificationService:
 ## SAME CODE ENDS
 
 
-class OrderFacade:
+class IOrderFacade(ABC):
     def __init__(
         self,
-        hall_service: HallService,
-        booking_service: BookingService,
-        payment_service: PaymentService,
-        notification_service: NotificationService,
+        hall_service: IHallService,
+        booking_service: IBookingService,
+        payment_service: IPaymentService,
+        notification_service: INotificationService,
     ) -> None:
         self.hall_service = hall_service
         self.booking_service = booking_service
         self.payment_serivce = payment_service
         self.notification_service = notification_service
 
+    @abstractmethod
+    def order(self, hall: int, row: int, line: int) -> str:
+        pass
+
+
+class OrderFacade(IOrderFacade):
     def order(self, hall: int, row: int, line: int) -> str:
         if not self.hall_service.check_seat(hall, row, line):
             raise InvalidBooking(f"Seat {row} {line} in hall {hall} is booked.")
