@@ -1,6 +1,7 @@
 package main
 
 func main() {
-	res := minCuttingCost(6, 5, 5)
+	nums := []int{1, 3, 4, 2, 5}
+	res := semiOrderedPermutation(nums)
 	println(res)
 }
