@@ -1,7 +1,6 @@
 package main
 
 func main() {
-	nums := []int{1, 3, 4, 2, 5}
-	res := semiOrderedPermutation(nums)
+	res := hasAlternatingBits(5)
 	println(res)
 }
