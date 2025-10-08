@@ -1,6 +1,10 @@
 package main
 
 func main() {
-	res := hasAlternatingBits(5)
-	println(res)
+	nums := []int{1, 2, 0, 0}
+	k := 34
+	res := addToArrayForm(nums, k)
+	for _, num := range res {
+		println(num)
+	}
 }
