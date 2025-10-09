@@ -1,10 +1,7 @@
 package main
 
 func main() {
-	nums := []int{1, 2, 0, 0}
-	k := 34
-	res := addToArrayForm(nums, k)
-	for _, num := range res {
-		println(num)
-	}
+	words := []string{"a", "b", "c"}
+	res := numMatchingSubseq("abcdefg", words)
+	println(res)
 }
