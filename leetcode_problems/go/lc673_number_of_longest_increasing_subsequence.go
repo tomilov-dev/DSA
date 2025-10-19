@@ -4,7 +4,7 @@ func findNumberOfLIS(nums []int) int {
 	n := len(nums)
 	dpl := make([]int, n)
 	dpc := make([]int, n)
-	maxc := 1
+	maxl := 1
 	for i := range dpl {
 		dpl[i] = 1
 		dpc[i] = 1
@@ -19,12 +19,12 @@ func findNumberOfLIS(nums []int) int {
 					dpc[i] += dpc[j]
 				}
 			}
-			maxc = max(maxc, dpl[i])
+			maxl = max(maxl, dpl[i])
 		}
 	}
 	total := 0
 	for i := range dpl {
-		if dpl[i] == maxc {
+		if dpl[i] == maxl {
 			total += dpc[i]
 		}
 	}
