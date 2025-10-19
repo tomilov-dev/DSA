@@ -1,7 +1,10 @@
 package main
 
 func main() {
-	words := []string{"a", "b", "c"}
-	res := numMatchingSubseq("abcdefg", words)
+	m := 3
+	n := 2
+	hc := []int{1, 3}
+	vc := []int{5}
+	res := minimumCostForCuttingCake(m, n, hc, vc)
 	println(res)
 }
