@@ -1,10 +1,7 @@
 package main
 
 func main() {
-	m := 3
-	n := 2
-	hc := []int{1, 3}
-	vc := []int{5}
-	res := minimumCostForCuttingCake(m, n, hc, vc)
+	// nums := []int{1}
+	res := canReachJG7TopDown("011010", 2, 3)
 	println(res)
 }
