@@ -1,19 +1,26 @@
 class Solution:
-    def longestSubarray(self, nums: list[int]) -> int:
-        maxi = 2
-        cur = 2
-        n = len(nums)
-        for i in range(2, n):
-            if nums[i - 2] + nums[i - 1] == nums[i]:
-                cur += 1
-                maxi = max(maxi, cur)
-            else:
-                cur = 2
-        return maxi
+    def maxSumOfSquares(self, num: int, sum: int) -> str:
+        res = [0] * num
+        for i in range(num):
+            cur = min(9, sum)
+            res[i] = cur
+            sum -= cur
+            if sum == 0:
+                break
+        if sum > 0:
+            return ""
+        return "".join([str(x) for x in res])
 
 
 if __name__ == "__main__":
-    nums = [1, 1, 1, 1, 2, 3, 5, 1]
-    nums = [5, 2, 7, 9, 16]
-    nums = [1000000000, 1000000000, 1000000000]
-    print(Solution().longestSubarray(nums))
+    num = 2
+    sum = 3
+
+    num = 2
+    sum = 17
+
+    num = 1
+    sum = 10
+
+    sol = Solution()
+    print(sol.maxSumOfSquares(num, sum))

@@ -1,19 +1,24 @@
 class Solution:
-    def scoreBalance(self, s: str) -> bool:
-        full = 0
-        for char in s:
-            sc = ord(char) - ord("a") + 1
-            full += sc
+    def lexSmallest(self, s: str) -> str:
+        def rev(s: str) -> str:
+            return "".join(reversed(s))
 
-        part = 0
-        for char in s:
-            sc = ord(char) - ord("a") + 1
-            part += sc
-            full -= sc
-            if part == full:
-                return True
-        return False
+        sm: str | None = None
+        for k in range(len(s)):
+            v1 = rev(s[:k]) + s[k:]
+            if sm is None:
+                sm = v1
+            if v1 < sm:
+                sm = v1
+            v2 = s[:k] + rev(s[k:])
+            if v2 < sm:
+                sm = v2
+        return sm
 
 
 if __name__ == "__main__":
-    print(Solution().scoreBalance("bace"))
+    s = "dcab"
+    # s = "abba"
+    # s = "zxy"
+    sol = Solution()
+    print(sol.lexSmallest(s))
