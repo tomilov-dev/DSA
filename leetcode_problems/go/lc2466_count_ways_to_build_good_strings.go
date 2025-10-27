@@ -1,7 +1,5 @@
 package main
 
-const MOD = 1_000_000_007
-
 func countGoodStringsRecursiveHelper(low int, high int, zero int, one int, l int) int {
 	if l > high {
 		return 0
