@@ -1,7 +1,6 @@
 package main
 
 func main() {
-	// nums := []int{1}
-	res := isAdditiveNumber("112358")
+	res := minimumSubstringsInPartitionBottomUp("fabccddg")
 	println(res)
 }
