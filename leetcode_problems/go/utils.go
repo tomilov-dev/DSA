@@ -6,6 +6,15 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+type QuadTree struct {
+	Val         bool
+	IsLeaf      bool
+	TopLeft     *QuadTree
+	TopRight    *QuadTree
+	BottomLeft  *QuadTree
+	BottomRight *QuadTree
+}
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
