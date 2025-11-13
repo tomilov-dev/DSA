@@ -1,8 +1,6 @@
 package main
 
 func main() {
-	res := pancakeSort([]int{3, 2, 4, 1})
-	for _, num := range res {
-		println(num)
-	}
+	res := maximumRemovals("abcacb", "ab", []int{3, 1, 0})
+	println(res)
 }
