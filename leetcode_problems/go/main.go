@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	res := maximumRemovals("abcacb", "ab", []int{3, 1, 0})
+	res := findLUSlength2([]string{"aba", "cdc", "eaea"})
 	println(res)
 }
