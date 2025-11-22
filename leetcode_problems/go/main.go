@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	res := minSubarray([]int{3, 1, 4, 2}, 6)
+	res := totalFruit([]int{1, 2, 3, 2, 2})
 	println(res)
 }
