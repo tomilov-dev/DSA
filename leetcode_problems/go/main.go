@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	res := findLUSlength2([]string{"aba", "cdc", "eaea"})
+	res := maximumSubarraySum([]int{1, 2, 3, 4, 5, 6}, 1)
 	println(res)
 }
