@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	res := maximumSubarraySum([]int{1, 2, 3, 4, 5, 6}, 1)
+	res := totalFruit([]int{1, 2, 3, 2, 2})
 	println(res)
 }
