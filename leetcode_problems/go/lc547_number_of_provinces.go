@@ -11,9 +11,9 @@ func findCircleNumDFS(graph [][]int, color []int, init int) {
 		}
 
 		color[v] = 1
-		for child, conn := range graph[v] {
-			if conn == 1 && color[child] == 0 {
-				stack = append(stack, child)
+		for i := len(graph[v]) - 1; i >= 0; i-- {
+			if graph[v][i] == 1 && color[i] == 0 {
+				stack = append(stack, i)
 			}
 		}
 		color[v] = 2
