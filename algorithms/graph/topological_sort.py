@@ -1,24 +1,48 @@
-from typing import Optional
+from collections import deque
 
 
-def topological_sort(
-    graph: list[list[int]],
-    start_vertex: int,
-) -> list:
+def topological_sort_dfs(graph: list[list[int]]) -> list:
     def dfs(vertex: int) -> None:
-        color[vertex] = "g"
-        for child_vertex in range(len(graph)):
-            if graph[vertex][child_vertex] == 1 and color[child_vertex] == "w":
-                color[child_vertex] = "g"
-                dfs(child_vertex)
-
-        color[vertex] = "b"
+        color[vertex] = 1
+        for child, conn in enumerate(graph[vertex]):
+            if conn == 1 and color[child] == 0:
+                dfs(child)
+        color[vertex] = 2
         stack.append(vertex)
 
+    n = len(graph)
     stack = []
-    color = ["w" for _ in range(len(graph))]
-    dfs(start_vertex)
+    color = [0] * n
+    for v in range(len(graph)):
+        if color[v] == 0:
+            dfs(v)
     return stack[::-1]
+
+
+def topological_sort_kahn(graph: list[list[int]]) -> list:
+    n = len(graph)
+    in_degree = [0] * n
+    for u in range(n):
+        for v, conn in enumerate(graph[u]):
+            if conn == 0:
+                continue
+            in_degree[v] += 1
+
+    q = deque([i for i in range(n) if in_degree[i] == 0])
+    order = []
+    while q:
+        u = q.popleft()
+        order.append(u)
+        for v, conn in enumerate(graph[u]):
+            if conn == 0:
+                continue
+            in_degree[v] -= 1
+            if in_degree[v] == 0:
+                q.append(v)
+
+    if len(order) != n:
+        return []
+    return order
 
 
 if __name__ == "__main__":
@@ -32,5 +56,5 @@ if __name__ == "__main__":
     ]
     start_vertex = 0
 
-    gsort = topological_sort(adj_matrix, start_vertex)
+    gsort = topological_sort_dfs(adj_matrix)
     print(gsort)
